@@ -1,0 +1,64 @@
+{
+    "name": "handcraftedinthealps/sulu-resource-bundle",
+    "license": "MIT",
+    "type": "sulu-bundle",
+    "description": "Provide resource functionality for Sulu CMS.",
+    "require": {
+        "php": "^7.2",
+        "symfony/http-kernel": "^4.3 || ^5.0"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.12",
+        "handcraftedinthealps/code-coverage-checker": "^0.2.0",
+        "jangregor/phpstan-prophecy": "^0.5.1",
+        "phpstan/phpstan": "^0.12.1",
+        "phpstan/phpstan-phpunit": "^0.12",
+        "phpstan/phpstan-webmozart-assert": "^0.12.2",
+        "sensiolabs-de/deptrac-shim": "^0.5.0",
+        "symfony/monolog-bundle": "^3.1",
+        "symfony/phpunit-bridge": "^4.3",
+        "thecodingmachine/phpstan-strict-rules": "^0.12",
+        "zendframework/zendsearch": "@dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "HandcraftedInTheAlps\\Bundle\\SuluResourceBundle\\": ""
+        }
+    },
+    "scripts": {
+        "lint": [
+            "@lint-composer",
+            "@php-cs",
+            "@phpstan"
+        ],
+        "test": "@phpunit",
+        "lint-composer": "@composer validate",
+        "phpstan": "vendor/bin/phpstan analyse",
+        "php-cs": "vendor/bin/php-cs-fixer fix --verbose --diff --dry-run",
+        "php-cs-fix": "vendor/bin/php-cs-fixer fix",
+        "check-code-coverage": "vendor/bin/code-coverage-checker",
+        "phpunit": "vendor/bin/simple-phpunit"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    },
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/luca-rath/messenger-utils"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/luca-rath/model-utils"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/luca-rath/testing-utils"
+        }
+    ]
+}

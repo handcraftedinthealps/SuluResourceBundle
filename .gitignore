@@ -1,0 +1,22 @@
+# PHPUnit
+/phpunit.xml
+.phpunit.result.cache
+
+# composer
+/composer.phar
+/composer.lock
+/auth.json
+/vendor
+
+# IDEs
+.idea/*
+*.iml
+*~
+.php-version
+php.ini
+
+# System files
+.DS_Store
+
+# php-cs-fixer
+.php_cs.cache
