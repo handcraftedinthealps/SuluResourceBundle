@@ -11,10 +11,13 @@ use Symfony\Component\Form\FormInterface;
 class ModelFormInvalidException extends RuntimeException
 {
     /**
-     * @var FormInterface
+     * @var FormInterface<mixed>
      */
     protected $form;
 
+    /**
+     * @param FormInterface<mixed> $form
+     */
     public function __construct(FormInterface $form)
     {
         $this->form = $form;
@@ -46,6 +49,9 @@ class ModelFormInvalidException extends RuntimeException
         ];
     }
 
+    /**
+     * @return FormInterface<mixed>
+     */
     public function getForm(): FormInterface
     {
         return $this->form;
