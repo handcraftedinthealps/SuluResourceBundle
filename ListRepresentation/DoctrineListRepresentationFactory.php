@@ -48,11 +48,13 @@ class DoctrineListRepresentationFactory implements DoctrineListRepresentationFac
     /**
      * @param mixed[] $filters
      * @param mixed[] $parameters
+     * @param string[] $includedFields
      */
     public function createDoctrineListRepresentation(
         string $resourceKey,
         array $filters = [],
-        array $parameters = []
+        array $parameters = [],
+        array $includedFields = []
     ): PaginatedRepresentation {
         /** @var DoctrineFieldDescriptor[] $fieldDescriptors */
         $fieldDescriptors = $this->fieldDescriptorFactory->getFieldDescriptors($resourceKey);
@@ -66,6 +68,10 @@ class DoctrineListRepresentationFactory implements DoctrineListRepresentationFac
 
         foreach ($filters as $key => $value) {
             $listBuilder->where($fieldDescriptors[$key], $value);
+        }
+
+        foreach ($includedFields as $field) {
+            $listBuilder->addSelectField($fieldDescriptors[$field]);
         }
 
         $items = $listBuilder->execute();

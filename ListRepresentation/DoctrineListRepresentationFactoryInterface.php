@@ -11,10 +11,12 @@ interface DoctrineListRepresentationFactoryInterface
     /**
      * @param mixed[] $filters
      * @param mixed[] $parameters
+     * @param string[] $includedFields
      */
     public function createDoctrineListRepresentation(
         string $resourceKey,
         array $filters = [],
-        array $parameters = []
+        array $parameters = [],
+        array $includedFields = []
     ): PaginatedRepresentation;
 }
