@@ -5,12 +5,16 @@ declare(strict_types=1);
 namespace HandcraftedInTheAlps\Bundle\SuluResourceBundle\Middleware;
 
 use Doctrine\ORM\EntityManagerInterface;
+use HandcraftedInTheAlps\Bundle\SuluResourceBundle\Common\DisableInterface;
+use HandcraftedInTheAlps\Bundle\SuluResourceBundle\Common\DisableTrait;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
 use Symfony\Component\Messenger\Middleware\StackInterface;
 
-class DoctrineFlushMiddleware implements MiddlewareInterface
+class DoctrineFlushMiddleware implements MiddlewareInterface, DisableInterface
 {
+    use DisableTrait;
+
     /**
      * @var EntityManagerInterface
      */
@@ -31,6 +35,10 @@ class DoctrineFlushMiddleware implements MiddlewareInterface
      */
     public function handle(Envelope $envelope, StackInterface $stack): Envelope
     {
+        if ($this->isDisabled()) {
+            return $stack->next()->handle($envelope, $stack);
+        }
+
         ++$this->messageDepth;
 
         try {
