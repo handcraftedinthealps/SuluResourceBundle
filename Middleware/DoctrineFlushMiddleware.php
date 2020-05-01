@@ -31,6 +31,10 @@ class DoctrineFlushMiddleware implements MiddlewareInterface
      */
     public function handle(Envelope $envelope, StackInterface $stack): Envelope
     {
+        if (!empty($envelope->all(DisableFlushStamp::class))) {
+            return $stack->next()->handle($envelope, $stack);
+        }
+
         ++$this->messageDepth;
 
         try {
