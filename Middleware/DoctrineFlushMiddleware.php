@@ -31,10 +31,6 @@ class DoctrineFlushMiddleware implements MiddlewareInterface
      */
     public function handle(Envelope $envelope, StackInterface $stack): Envelope
     {
-        if (!empty($envelope->all(DisableFlushStamp::class))) {
-            return $stack->next()->handle($envelope, $stack);
-        }
-
         ++$this->messageDepth;
 
         try {
@@ -46,6 +42,10 @@ class DoctrineFlushMiddleware implements MiddlewareInterface
 
         // flush unit-of-work to the database after the root message was handled successfully
         if (0 === $this->messageDepth) {
+            if (!empty($envelope->all(DisableFlushStamp::class))) {
+                return $envelope;
+            }
+
             $this->entityManager->flush();
         }
 
