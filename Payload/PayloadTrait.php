@@ -14,17 +14,11 @@ trait PayloadTrait
     protected $payload;
 
     /**
-     * @var bool
-     */
-    protected $defaultThrowIfNotExists;
-
-    /**
      * @param mixed[] $payload
      */
-    public function initializePayloadTrait(array $payload = [], bool $defaultThrowIfNotExists = true): void
+    public function initializePayloadTrait(array $payload = []): void
     {
         $this->payload = $payload;
-        $this->defaultThrowIfNotExists = $defaultThrowIfNotExists;
     }
 
     /**
@@ -43,13 +37,9 @@ trait PayloadTrait
     /**
      * @return mixed
      */
-    public function getValue(string $key, ?bool $throwIfNotExists = null)
+    public function getValue(string $key, bool $nullIfNotExists = false)
     {
-        if (null === $throwIfNotExists) {
-            $throwIfNotExists = $this->defaultThrowIfNotExists;
-        }
-
-        if ($throwIfNotExists) {
+        if (!$nullIfNotExists) {
             Assert::keyExists($this->payload, $key);
         }
 
@@ -58,20 +48,16 @@ trait PayloadTrait
 
     public function getBoolValue(string $key): bool
     {
-        $value = $this->getValue($key, true);
+        $value = $this->getValue($key, false);
 
         Assert::boolean($value);
 
         return $value;
     }
 
-    public function getNullableBoolValue(string $key, ?bool $throwIfNotExists = null): ?bool
+    public function getNullableBoolValue(string $key, bool $nullIfNotExists = false): ?bool
     {
-        if (null === $throwIfNotExists) {
-            $throwIfNotExists = $this->defaultThrowIfNotExists;
-        }
-
-        $value = $this->getValue($key, $throwIfNotExists);
+        $value = $this->getValue($key, $nullIfNotExists);
 
         if (null === $value) {
             return null;
@@ -84,20 +70,16 @@ trait PayloadTrait
 
     public function getStringValue(string $key): string
     {
-        $value = $this->getValue($key, true);
+        $value = $this->getValue($key, false);
 
         Assert::string($value);
 
         return $value;
     }
 
-    public function getNullableStringValue(string $key, ?bool $throwIfNotExists = null): ?string
+    public function getNullableStringValue(string $key, bool $nullIfNotExists = false): ?string
     {
-        if (null === $throwIfNotExists) {
-            $throwIfNotExists = $this->defaultThrowIfNotExists;
-        }
-
-        $value = $this->getValue($key, $throwIfNotExists);
+        $value = $this->getValue($key, $nullIfNotExists);
 
         if (null === $value) {
             return null;
@@ -113,13 +95,9 @@ trait PayloadTrait
         return new \DateTimeImmutable($this->getStringValue($key));
     }
 
-    public function getNullableDateTimeValue(string $key, ?bool $throwIfNotExists = null): ?\DateTimeImmutable
+    public function getNullableDateTimeValue(string $key, bool $nullIfNotExists = false): ?\DateTimeImmutable
     {
-        if (null === $throwIfNotExists) {
-            $throwIfNotExists = $this->defaultThrowIfNotExists;
-        }
-
-        $value = $this->getNullableStringValue($key, $throwIfNotExists);
+        $value = $this->getNullableStringValue($key, $nullIfNotExists);
 
         if (!$value) {
             return null;
@@ -130,7 +108,7 @@ trait PayloadTrait
 
     public function getFloatValue(string $key): float
     {
-        $value = $this->getValue($key, true);
+        $value = $this->getValue($key, false);
 
         if (\is_int($value)) {
             $value = (float) $value;
@@ -141,13 +119,9 @@ trait PayloadTrait
         return $value;
     }
 
-    public function getNullableFloatValue(string $key, ?bool $throwIfNotExists = null): ?float
+    public function getNullableFloatValue(string $key, bool $nullIfNotExists = false): ?float
     {
-        if (null === $throwIfNotExists) {
-            $throwIfNotExists = $this->defaultThrowIfNotExists;
-        }
-
-        $value = $this->getValue($key, $throwIfNotExists);
+        $value = $this->getValue($key, $nullIfNotExists);
 
         if (null === $value) {
             return null;
@@ -164,20 +138,16 @@ trait PayloadTrait
 
     public function getIntValue(string $key): int
     {
-        $value = $this->getValue($key, true);
+        $value = $this->getValue($key, false);
 
         Assert::integer($value);
 
         return $value;
     }
 
-    public function getNullableIntValue(string $key, ?bool $throwIfNotExists = null): ?int
+    public function getNullableIntValue(string $key, bool $nullIfNotExists = false): ?int
     {
-        if (null === $throwIfNotExists) {
-            $throwIfNotExists = $this->defaultThrowIfNotExists;
-        }
-
-        $value = $this->getValue($key, $throwIfNotExists);
+        $value = $this->getValue($key, $nullIfNotExists);
 
         if (null === $value) {
             return null;
@@ -193,7 +163,7 @@ trait PayloadTrait
      */
     public function getArrayValue(string $key): array
     {
-        $value = $this->getValue($key, true);
+        $value = $this->getValue($key, false);
 
         Assert::isArray($value);
 
@@ -203,13 +173,9 @@ trait PayloadTrait
     /**
      * @return mixed[]|null
      */
-    public function getNullableArrayValue(string $key, ?bool $throwIfNotExists = null): ?array
+    public function getNullableArrayValue(string $key, bool $nullIfNotExists = false): ?array
     {
-        if (null === $throwIfNotExists) {
-            $throwIfNotExists = $this->defaultThrowIfNotExists;
-        }
-
-        $value = $this->getValue($key, $throwIfNotExists);
+        $value = $this->getValue($key, $nullIfNotExists);
 
         if (null === $value) {
             return null;
