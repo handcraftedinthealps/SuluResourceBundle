@@ -42,6 +42,10 @@ class DoctrineFlushMiddleware implements MiddlewareInterface
 
         // flush unit-of-work to the database after the root message was handled successfully
         if (0 === $this->messageDepth) {
+            if (!empty($envelope->all(DisableFlushStamp::class))) {
+                return $envelope;
+            }
+
             $this->entityManager->flush();
         }
 
