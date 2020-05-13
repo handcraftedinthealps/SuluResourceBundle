@@ -37,25 +37,28 @@ trait PayloadTrait
     /**
      * @return mixed
      */
-    public function getValue(string $key)
+    public function getValue(string $key, bool $nullIfNotExists = false)
     {
-        Assert::keyExists($this->payload, $key);
+        if (!$nullIfNotExists) {
+            Assert::keyExists($this->payload, $key);
+        }
 
-        return $this->payload[$key];
+        return $this->payload[$key] ?? null;
     }
 
     public function getBoolValue(string $key): bool
     {
-        $value = $this->getValue($key);
+        $value = $this->getValue($key, false);
 
         Assert::boolean($value);
 
         return $value;
     }
 
-    public function getNullableBoolValue(string $key): ?bool
+    public function getNullableBoolValue(string $key, bool $nullIfNotExists = false): ?bool
     {
-        $value = $this->getValue($key);
+        $value = $this->getValue($key, $nullIfNotExists);
+
         if (null === $value) {
             return null;
         }
@@ -67,16 +70,17 @@ trait PayloadTrait
 
     public function getStringValue(string $key): string
     {
-        $value = $this->getValue($key);
+        $value = $this->getValue($key, false);
 
         Assert::string($value);
 
         return $value;
     }
 
-    public function getNullableStringValue(string $key): ?string
+    public function getNullableStringValue(string $key, bool $nullIfNotExists = false): ?string
     {
-        $value = $this->getValue($key);
+        $value = $this->getValue($key, $nullIfNotExists);
+
         if (null === $value) {
             return null;
         }
@@ -91,9 +95,10 @@ trait PayloadTrait
         return new \DateTimeImmutable($this->getStringValue($key));
     }
 
-    public function getNullableDateTimeValue(string $key): ?\DateTimeImmutable
+    public function getNullableDateTimeValue(string $key, bool $nullIfNotExists = false): ?\DateTimeImmutable
     {
-        $value = $this->getNullableStringValue($key);
+        $value = $this->getNullableStringValue($key, $nullIfNotExists);
+
         if (!$value) {
             return null;
         }
@@ -103,7 +108,7 @@ trait PayloadTrait
 
     public function getFloatValue(string $key): float
     {
-        $value = $this->getValue($key);
+        $value = $this->getValue($key, false);
 
         if (\is_int($value)) {
             $value = (float) $value;
@@ -114,9 +119,10 @@ trait PayloadTrait
         return $value;
     }
 
-    public function getNullableFloatValue(string $key): ?float
+    public function getNullableFloatValue(string $key, bool $nullIfNotExists = false): ?float
     {
-        $value = $this->getValue($key);
+        $value = $this->getValue($key, $nullIfNotExists);
+
         if (null === $value) {
             return null;
         }
@@ -132,16 +138,17 @@ trait PayloadTrait
 
     public function getIntValue(string $key): int
     {
-        $value = $this->getValue($key);
+        $value = $this->getValue($key, false);
 
         Assert::integer($value);
 
         return $value;
     }
 
-    public function getNullableIntValue(string $key): ?int
+    public function getNullableIntValue(string $key, bool $nullIfNotExists = false): ?int
     {
-        $value = $this->getValue($key);
+        $value = $this->getValue($key, $nullIfNotExists);
+
         if (null === $value) {
             return null;
         }
@@ -156,7 +163,7 @@ trait PayloadTrait
      */
     public function getArrayValue(string $key): array
     {
-        $value = $this->getValue($key);
+        $value = $this->getValue($key, false);
 
         Assert::isArray($value);
 
@@ -166,9 +173,10 @@ trait PayloadTrait
     /**
      * @return mixed[]|null
      */
-    public function getNullableArrayValue(string $key): ?array
+    public function getNullableArrayValue(string $key, bool $nullIfNotExists = false): ?array
     {
-        $value = $this->getValue($key);
+        $value = $this->getValue($key, $nullIfNotExists);
+
         if (null === $value) {
             return null;
         }
