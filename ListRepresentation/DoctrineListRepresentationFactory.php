@@ -79,11 +79,10 @@ class DoctrineListRepresentationFactory implements DoctrineListRepresentationFac
         // sort the items to reflect the order of the given ids if the list was requested to include specific ids
         $requestedIds = $this->listRestHelper->getIds();
         if (null !== $requestedIds) {
-            usort($items, static function ($item1, $item2) use ($requestedIds) {
-                $item1Position = array_search($item1['id'], $requestedIds, true);
-                $item2Position = array_search($item2['id'], $requestedIds, true);
+            $idPositions = array_flip($requestedIds);
 
-                return $item1Position - $item2Position;
+            usort($items, function ($a, $b) use ($idPositions) {
+                return $idPositions[$a['id']] - $idPositions[$b['id']];
             });
         }
 
