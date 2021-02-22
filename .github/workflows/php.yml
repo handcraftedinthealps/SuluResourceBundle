@@ -1,32 +1,83 @@
 name: PHP
 
-on: pull_request
+
+on:
+    pull_request:
+    push:
+        branches:
+            - '[0-9]+.x'
+            - '[0-9]+.[0-9]+'
 
 jobs:
-    tests:
+    test:
+        name: 'PHP ${{ matrix.php-version }} (${{ matrix.database }}, ${{ matrix.dependency-versions }})'
         runs-on: ubuntu-latest
 
+        strategy:
+            fail-fast: false
+            matrix:
+                include:
+                    - php-version: '7.2'
+                      database: postgres
+                      dependency-versions: 'lowest'
+                      tools: 'composer:v1'
+                      lint: false
+                      env:
+                          SYMFONY_DEPRECATIONS_HELPER: disabled
+                          DATABASE_URL: postgres://postgres:postgres@127.0.0.1/sulu_form_test?serverVersion=12.5
+                          DATABASE_CHARSET: UTF8
+                          DATABASE_COLLATE:
+                    - php-version: '7.4'
+                      database: mysql
+                      dependency-versions: 'highest'
+                      tools: 'composer:v2'
+                      lint: true
+                      env:
+                          SYMFONY_DEPRECATIONS_HELPER: weak
+                          DATABASE_URL: mysql://root:root@127.0.0.1/sulu_form_test?serverVersion=5.7
+                          DATABASE_CHARSET: utf8mb4
+                          DATABASE_COLLATE: utf8mb4_unicode_ci
+
+        services:
+            mysql:
+                image: mysql:5.7
+                env:
+                    MYSQL_ROOT_PASSWORD: root
+                ports:
+                    - 3306:3306
+                options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
+
+            postgres:
+                image: postgres:12.5
+                env:
+                    POSTGRES_USER: postgres
+                    POSTGRES_PASSWORD: postgres
+                ports:
+                    - 5432:5432
+                options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
         steps:
-            - uses: actions/checkout@v1
+            - name: Checkout project
+              uses: actions/checkout@v2
 
-            - name: Validate composer.json and composer.lock
-              run: composer validate
-
-            - name: Get Composer Cache Directory
-              id: composer-cache
-              run: |
-                  echo "::set-output name=dir::$(composer config cache-files-dir)"
-            - uses: actions/cache@v1
+            - name: Install and configure PHP
+              uses: shivammathur/setup-php@v2
               with:
-                  path: ${{ steps.composer-cache.outputs.dir }}
-                  key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
-                  restore-keys: |
-                      ${{ runner.os }}-composer-
-            - name: Install dependencies
-              run: composer install --prefer-dist --no-progress --no-suggest
+                  php-version: ${{ matrix.php-version }}
+                  extensions: 'imagick'
+                  tools: ${{ matrix.tools }}
+                  coverage: none
 
-            - name: Linting code
+            - name: Install composer dependencies
+              uses: ramsey/composer-install@v1
+              with:
+                  dependency-versions: ${{matrix.dependency-versions}}
+
+            - name: Lint code
+              if: ${{ matrix.lint }}
               run: composer lint
+              env: ${{ matrix.env }}
 
-            - name: Run unit tests
-              run: composer phpunit
+            - name: Execute test cases
+              run: time composer test
+              env: ${{ matrix.env }}
