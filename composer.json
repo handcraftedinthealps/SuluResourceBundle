@@ -30,6 +30,14 @@
     "autoload": {
         "psr-4": {
             "HandcraftedInTheAlps\\Bundle\\SuluResourceBundle\\": ""
+        },
+        "exclude-from-classmap": [
+            "/Tests/"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "HandcraftedInTheAlps\\Bundle\\SuluResourceBundle\\Tests\\": "Tests"
         }
     },
     "scripts": {
