@@ -73,7 +73,7 @@ class DoctrineNestedListRepresentationFactory implements DoctrineNestedListRepre
         }
 
         // disable pagination to simplify tree handling and select tree related properties that are used below
-        $listBuilder->limit(PHP_INT_MAX);
+        $listBuilder->limit(\PHP_INT_MAX);
         $listBuilder->addSelectField($fieldDescriptors['lft']);
         $listBuilder->addSelectField($fieldDescriptors['rgt']);
         $listBuilder->addSelectField($fieldDescriptors['parentId']);

@@ -24,7 +24,7 @@ class ModelFormInvalidException extends RuntimeException
 
         parent::__construct(
             sprintf(
-                'Invalid form data for "%s" on form "%s": ' . json_encode($this->getErrors(), JSON_PRETTY_PRINT),
+                'Invalid form data for "%s" on form "%s": ' . json_encode($this->getErrors(), \JSON_PRETTY_PRINT),
                 \get_class($this->form->getData()),
                 \get_class($this->form)
             )
@@ -39,7 +39,7 @@ class ModelFormInvalidException extends RuntimeException
         $message = '';
 
         foreach ($this->getErrors() as $fieldName => $field) {
-            $message .= ucfirst($fieldName) . ': ' . implode(',', $field['messages']) . PHP_EOL;
+            $message .= ucfirst($fieldName) . ': ' . implode(',', $field['messages']) . \PHP_EOL;
         }
 
         return [
