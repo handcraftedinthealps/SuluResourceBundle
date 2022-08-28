@@ -61,10 +61,13 @@ class DoctrineNestedListRepresentationFactory implements DoctrineNestedListRepre
         $parentId = null,
         array $expandedIds = [],
         array $includedFields = [],
-        array $groupByFields = []
+        array $groupByFields = [],
+        string $listKey = null
     ): CollectionRepresentation {
+        $listKey = $listKey ?? $resourceKey;
+
         /** @var DoctrineFieldDescriptor[] $fieldDescriptors */
-        $fieldDescriptors = $this->fieldDescriptorFactory->getFieldDescriptors($resourceKey);
+        $fieldDescriptors = $this->fieldDescriptorFactory->getFieldDescriptors($listKey);
         $listBuilder = $this->listBuilderFactory->create($fieldDescriptors['id']->getEntityName());
         $this->restHelper->initializeListBuilder($listBuilder, $fieldDescriptors);
 
