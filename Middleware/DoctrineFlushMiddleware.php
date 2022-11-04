@@ -26,9 +26,6 @@ class DoctrineFlushMiddleware implements MiddlewareInterface
         $this->entityManager = $entityManager;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function handle(Envelope $envelope, StackInterface $stack): Envelope
     {
         ++$this->messageDepth;

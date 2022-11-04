@@ -79,7 +79,7 @@ class DoctrineNestedListRepresentationFactory implements DoctrineNestedListRepre
         $listBuilder->addSelectField($fieldDescriptors['parentId']);
 
         // collect entities of which the children should be included in the response
-        $idsToExpand = array_merge(
+        $idsToExpand = \array_merge(
             [$parentId],
             $this->findIdsOnPathsBetween($fieldDescriptors['id']->getEntityName(), $parentId, $expandedIds),
             $expandedIds
@@ -140,7 +140,7 @@ class DoctrineNestedListRepresentationFactory implements DoctrineNestedListRepre
             ->andWhere('entity.rgt > endEntity.rgt')
             ->setParameter('endIds', $endIds);
 
-        return array_map('current', $queryBuilder->getQuery()->getScalarResult());
+        return \array_map('current', $queryBuilder->getQuery()->getScalarResult());
     }
 
     /**

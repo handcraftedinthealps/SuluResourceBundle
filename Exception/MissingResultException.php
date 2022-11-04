@@ -13,7 +13,7 @@ class MissingResultException extends \Exception
 
     public function __construct(string $method)
     {
-        parent::__construct(sprintf('Result is missing for method "%s"', $method));
+        parent::__construct(\sprintf('Result is missing for method "%s"', $method));
 
         $this->method = $method;
     }

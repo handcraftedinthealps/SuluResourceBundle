@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace HandcraftedInTheAlps\Bundle\SuluResourceBundle\Exception;
 
-use RuntimeException;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
 
-class ModelFormInvalidException extends RuntimeException
+class ModelFormInvalidException extends \RuntimeException
 {
     /**
      * @var FormInterface<mixed>
@@ -23,8 +22,8 @@ class ModelFormInvalidException extends RuntimeException
         $this->form = $form;
 
         parent::__construct(
-            sprintf(
-                'Invalid form data for "%s" on form "%s": ' . json_encode($this->getErrors(), \JSON_PRETTY_PRINT),
+            \sprintf(
+                'Invalid form data for "%s" on form "%s": ' . \json_encode($this->getErrors(), \JSON_PRETTY_PRINT),
                 \get_class($this->form->getData()),
                 \get_class($this->form)
             )
@@ -39,12 +38,12 @@ class ModelFormInvalidException extends RuntimeException
         $message = '';
 
         foreach ($this->getErrors() as $fieldName => $field) {
-            $message .= ucfirst($fieldName) . ': ' . implode(',', $field['messages']) . \PHP_EOL;
+            $message .= \ucfirst($fieldName) . ': ' . \implode(',', $field['messages']) . \PHP_EOL;
         }
 
         return [
             'code' => $this->code,
-            'message' => trim($message),
+            'message' => \trim($message),
             'errors' => $this->getErrors(),
         ];
     }
@@ -79,7 +78,7 @@ class ModelFormInvalidException extends RuntimeException
                 $viewData = $origin->getViewData();
 
                 $errors[$field] = [
-                    'value' => is_scalar($data) ? $data : $viewData,
+                    'value' => \is_scalar($data) ? $data : $viewData,
                     'messages' => [],
                 ];
             }
