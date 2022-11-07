@@ -47,17 +47,21 @@ class DoctrineNestedListRepresentationFactory implements DoctrineNestedListRepre
     }
 
     /**
-     * @param mixed[] $filters
-     * @param mixed[] $parameters
+     * @param array<string, mixed> $filters
+     * @param array<string, mixed> $parameters
      * @param int|string|null $parentId
      * @param int[]|string[] $expandedIds
+     * @param string[] $includedFields
+     * @param string[] $groupByFields
      */
     public function createDoctrineListRepresentation(
         string $resourceKey,
         array $filters = [],
         array $parameters = [],
         $parentId = null,
-        array $expandedIds = []
+        array $expandedIds = [],
+        array $includedFields = [],
+        array $groupByFields = []
     ): CollectionRepresentation {
         /** @var DoctrineFieldDescriptor[] $fieldDescriptors */
         $fieldDescriptors = $this->fieldDescriptorFactory->getFieldDescriptors($resourceKey);
@@ -70,6 +74,14 @@ class DoctrineNestedListRepresentationFactory implements DoctrineNestedListRepre
 
         foreach ($filters as $key => $value) {
             $listBuilder->where($fieldDescriptors[$key], $value);
+        }
+
+        foreach ($includedFields as $field) {
+            $listBuilder->addSelectField($fieldDescriptors[$field]);
+        }
+
+        foreach ($groupByFields as $field) {
+            $listBuilder->addGroupBy($fieldDescriptors[$field]);
         }
 
         // disable pagination to simplify tree handling and select tree related properties that are used below

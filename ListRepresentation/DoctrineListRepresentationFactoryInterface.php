@@ -9,14 +9,16 @@ use Sulu\Component\Rest\ListBuilder\PaginatedRepresentation;
 interface DoctrineListRepresentationFactoryInterface
 {
     /**
-     * @param mixed[] $filters
-     * @param mixed[] $parameters
+     * @param array<string, mixed> $filters
+     * @param array<string, mixed> $parameters
      * @param string[] $includedFields
+     * @param string[] $groupByFields
      */
     public function createDoctrineListRepresentation(
         string $resourceKey,
         array $filters = [],
         array $parameters = [],
-        array $includedFields = []
+        array $includedFields = [],
+        array $groupByFields = []
     ): PaginatedRepresentation;
 }
