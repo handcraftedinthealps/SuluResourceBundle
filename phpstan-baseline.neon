@@ -1,0 +1,96 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Cannot access offset 'messages' on mixed\\.$#"
+			count: 1
+			path: Exception/ModelFormInvalidException.php
+
+		-
+			message: "#^Parameter \\#1 \\$object of function get_class expects object, mixed given\\.$#"
+			count: 1
+			path: Exception/ModelFormInvalidException.php
+
+		-
+			message: "#^Parameter \\#2 \\$array of function implode expects array\\<string\\>, mixed given\\.$#"
+			count: 1
+			path: Exception/ModelFormInvalidException.php
+
+		-
+			message: "#^Parameter \\#2 \\$array of function implode expects array\\|null, mixed given\\.$#"
+			count: 1
+			path: Exception/ModelFormInvalidException.php
+
+		-
+			message: "#^Parameter \\#3 \\.\\.\\.\\$values of function sprintf expects bool\\|float\\|int\\|string\\|null, mixed given\\.$#"
+			count: 1
+			path: Exception/ModelNotFoundException.php
+
+		-
+			message: "#^Parameter \\#1 \\$entityName of method Sulu\\\\Component\\\\Rest\\\\ListBuilder\\\\Doctrine\\\\DoctrineListBuilderFactory\\:\\:create\\(\\) expects class\\-string, string given\\.$#"
+			count: 1
+			path: ListRepresentation/DoctrineListRepresentationFactory.php
+
+		-
+			message: "#^Parameter \\#2 \\$value of method Sulu\\\\Component\\\\Rest\\\\ListBuilder\\\\AbstractListBuilder\\:\\:where\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: ListRepresentation/DoctrineListRepresentationFactory.php
+
+		-
+			message: "#^Cannot access offset '_embedded' on mixed\\.$#"
+			count: 1
+			path: ListRepresentation/DoctrineNestedListRepresentationFactory.php
+
+		-
+			message: "#^Cannot access offset 'hasChildren' on mixed\\.$#"
+			count: 1
+			path: ListRepresentation/DoctrineNestedListRepresentationFactory.php
+
+		-
+			message: "#^Cannot access offset 'id' on mixed\\.$#"
+			count: 1
+			path: ListRepresentation/DoctrineNestedListRepresentationFactory.php
+
+		-
+			message: "#^Cannot access offset 'lft' on mixed\\.$#"
+			count: 2
+			path: ListRepresentation/DoctrineNestedListRepresentationFactory.php
+
+		-
+			message: "#^Cannot access offset 'parentId' on mixed\\.$#"
+			count: 2
+			path: ListRepresentation/DoctrineNestedListRepresentationFactory.php
+
+		-
+			message: "#^Cannot access offset 'rgt' on mixed\\.$#"
+			count: 2
+			path: ListRepresentation/DoctrineNestedListRepresentationFactory.php
+
+		-
+			message: "#^Comparison operation \"\\>\" between int\\<2, max\\> and 1 is always true\\.$#"
+			count: 1
+			path: ListRepresentation/DoctrineNestedListRepresentationFactory.php
+
+		-
+			message: "#^Method HandcraftedInTheAlps\\\\Bundle\\\\SuluResourceBundle\\\\ListRepresentation\\\\DoctrineNestedListRepresentationFactory\\:\\:findIdsOnPathsBetween\\(\\) should return array\\<int\\|string\\> but returns array\\.$#"
+			count: 1
+			path: ListRepresentation/DoctrineNestedListRepresentationFactory.php
+
+		-
+			message: "#^Parameter \\#1 \\$callback of function array_map expects \\(callable\\(mixed\\)\\: mixed\\)\\|null, 'current' given\\.$#"
+			count: 1
+			path: ListRepresentation/DoctrineNestedListRepresentationFactory.php
+
+		-
+			message: "#^Parameter \\#1 \\$entityName of method Sulu\\\\Component\\\\Rest\\\\ListBuilder\\\\Doctrine\\\\DoctrineListBuilderFactory\\:\\:create\\(\\) expects class\\-string, string given\\.$#"
+			count: 1
+			path: ListRepresentation/DoctrineNestedListRepresentationFactory.php
+
+		-
+			message: "#^Parameter \\#1 \\$key of function array_key_exists expects int\\|string, mixed given\\.$#"
+			count: 2
+			path: ListRepresentation/DoctrineNestedListRepresentationFactory.php
+
+		-
+			message: "#^Parameter \\#2 \\$value of method Sulu\\\\Component\\\\Rest\\\\ListBuilder\\\\AbstractListBuilder\\:\\:where\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: ListRepresentation/DoctrineNestedListRepresentationFactory.php

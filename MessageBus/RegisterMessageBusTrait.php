@@ -15,7 +15,7 @@ trait RegisterMessageBusTrait
     protected function registerMessageBus(ContainerBuilder $container, string $busId, array $middleware): void
     {
         if ($container->hasDefinition($busId)) {
-            throw new \LogicException(sprintf('Message bus "%s" has already been registered!', $busId));
+            throw new \LogicException(\sprintf('Message bus "%s" has already been registered!', $busId));
         }
 
         // We can not prepend the message bus in framework bundle as we don't want that it is accidentally the default
@@ -38,9 +38,9 @@ trait RegisterMessageBusTrait
         // argument to add_bus_name_stamp_middleware
         $defaultMiddleware['before'][0]['arguments'] = [$busId];
 
-        $middlewareConfig = array_merge($defaultMiddleware['before'], $middleware, $defaultMiddleware['after']);
+        $middlewareConfig = \array_merge($defaultMiddleware['before'], $middleware, $defaultMiddleware['after']);
 
-        $container->setParameter(sprintf('%s.middleware', $busId), $middlewareConfig);
+        $container->setParameter(\sprintf('%s.middleware', $busId), $middlewareConfig);
         $container
             ->register($busId, MessageBus::class)
             ->addArgument([])
@@ -52,7 +52,7 @@ trait RegisterMessageBusTrait
     protected function registerFlushMiddleware(ContainerBuilder $container, string $middlewareId = 'doctrine_flush_middleware'): void
     {
         if ($container->hasDefinition($middlewareId)) {
-            throw new \LogicException(sprintf('Middleware "%s" has already been registered!', $middlewareId));
+            throw new \LogicException(\sprintf('Middleware "%s" has already been registered!', $middlewareId));
         }
 
         $container

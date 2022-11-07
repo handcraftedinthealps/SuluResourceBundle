@@ -23,13 +23,13 @@ class ModelNotFoundException extends \Exception
     {
         $criteriaMessages = [];
         foreach ($criteria as $key => $value) {
-            $criteriaMessages[] = sprintf('with %s "%s"', $key, $value);
+            $criteriaMessages[] = \sprintf('with %s "%s"', $key, $value);
         }
 
-        $message = sprintf(
+        $message = \sprintf(
             'Entity "%s" with %s not found',
             $entity,
-            implode(' and ', $criteriaMessages)
+            \implode(' and ', $criteriaMessages)
         );
 
         parent::__construct($message, $code, $previous);
