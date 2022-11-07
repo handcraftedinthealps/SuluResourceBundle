@@ -23,6 +23,7 @@ interface DoctrineNestedListRepresentationFactoryInterface
         $parentId = null,
         array $expandedIds = [],
         array $includedFields = [],
-        array $groupByFields = []
+        array $groupByFields = [],
+        string $listKey = null
     ): CollectionRepresentation;
 }

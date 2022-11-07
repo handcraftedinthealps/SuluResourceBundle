@@ -19,6 +19,7 @@ interface DoctrineListRepresentationFactoryInterface
         array $filters = [],
         array $parameters = [],
         array $includedFields = [],
-        array $groupByFields = []
+        array $groupByFields = [],
+        string $listKey = null
     ): PaginatedRepresentation;
 }
