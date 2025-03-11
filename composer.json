@@ -1,16 +1,16 @@
 {
-    "name": "handcraftedinthealps/sulu-resource-bundle",
+    "name": "verzameldwerk/sulu-resource-bundle",
     "license": "MIT",
     "type": "sulu-bundle",
     "description": "Provide resource functionality for Sulu CMS.",
     "require": {
-        "php": "^7.2 || ^8.0",
+        "php": "^7.4 || ^8.0 || ^8.1 || ^8.2 || ^8.3",
         "doctrine/orm": "^2.7",
-        "sulu/sulu": "^2.0",
-        "symfony/dependency-injection": "^4.3 || ^5.0 || ^6.0",
-        "symfony/event-dispatcher": "^4.3 || ^5.0 || ^6.0",
-        "symfony/http-kernel": "^4.3 || ^5.0 || ^6.0",
-        "symfony/messenger": "^4.3 || ^5.0 || ^6.0",
+        "sulu/sulu": "^2.4 || ^2.5 || ^2.6",
+        "symfony/dependency-injection": "^4.3 || ^5.0 || ^6.0 || ^7.0",
+        "symfony/event-dispatcher": "^4.3 || ^5.0 || ^6.0 || ^7.0",
+        "symfony/http-kernel": "^4.3 || ^5.0 || ^6.0 || ^7.0",
+        "symfony/messenger": "^4.3 || ^5.0 || ^6.0 || ^7.0",
         "webmozart/assert": "^1.6"
     },
     "require-dev": {
@@ -23,6 +23,9 @@
         "phpstan/phpstan-symfony": "^1.2",
         "phpstan/phpstan-webmozart-assert": "^1.2",
         "thecodingmachine/phpstan-strict-rules": "^1.0"
+    },
+    "replace": {
+        "verzameldwerk/sulu-resource-bundle": "self.version"
     },
     "autoload": {
         "psr-4": {
