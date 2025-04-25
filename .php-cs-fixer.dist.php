@@ -25,6 +25,8 @@ $config->setRiskyAllowed(true)
         'phpdoc_to_comment' => [
             'ignored_tags' => ['todo', 'var'],
         ],
+        'trailing_comma_in_multiline' => false,
+        'nullable_type_declaration_for_default_null_value' => false,
     ])
     ->setFinder($finder);
 
